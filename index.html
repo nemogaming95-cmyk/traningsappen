@@ -1,0 +1,744 @@
+
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sommarutmaning P14</title>
+  <style>
+
+        :root{
+      /* Brand palette */
+      --primary:#39268C;   /* purple */
+      --accent:#FF9C16;    /* orange */
+      --danger:#FC1515;    /* red */
+      --white:#FFFFFF;
+      --black:#000000;
+
+      /* UI surfaces */
+      --bg:#FFFFFF;
+      --card:#FFFFFF;
+      --card2:#F6F4FF; /* very light purple tint */
+      --text:#000000;
+      --muted:rgba(0,0,0,.65);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 10px 30px rgba(57,38,140,.14);
+
+      /* Category accents (kept within palette) */
+      --kondition: var(--primary);
+      --fintar: var(--accent);
+      --snabbhet: var(--danger);
+      --kast: var(--black);
+
+      --ok: var(--primary);
+    }
+*{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(96,165,250,.25), transparent 60%),
+                  radial-gradient(900px 600px at 90% 0%, rgba(244,114,182,.22), transparent 60%),
+                  radial-gradient(900px 600px at 40% 110%, rgba(52,211,153,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+
+    header{
+      padding:18px 16px 10px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .titleRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    h1{
+      font-size: clamp(22px, 3vw, 30px);
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .topActions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    button{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:600;
+      letter-spacing:.2px;
+    }
+    button:hover{ background: rgba(255,255,255,.10); }
+    button:active{ transform: translateY(1px); }
+    .danger{
+      border-color: rgba(252,21,21,.55);
+      background: rgba(252,21,21,.10);
+      color: var(--black);
+    }
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 0 16px 26px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .statCard{
+      grid-column: span 12;
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      padding:12px 14px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .score{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+    }
+    .scoreBig{
+      font-size:34px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .scoreSmall{
+      color:var(--muted);
+      font-weight:700;
+    }
+    .miniBars{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-weight:700;
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+
+    @media (min-width: 860px){
+      main{ grid-template-columns: 1.2fr .8fr; align-items:start; }
+      .left{ grid-column: 1 / 2; }
+      .right{ grid-column: 2 / 3; position:sticky; top:10px; }
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardHeader{
+      padding:12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+    }
+    .cardHeader h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+
+    .section{
+      padding:12px 14px 14px;
+    }
+
+    .exercise{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .exercise:last-child{ margin-bottom:0; }
+
+    .exLeft{ min-width:0; }
+    .exTitle{
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .exMeta{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tagRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .tag{
+      font-size:12px;
+      font-weight:800;
+      color:rgba(255,255,255,.92);
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+    }
+
+    .exRight{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:flex-end;
+      flex-shrink:0;
+    }
+    .primary{
+      background: rgba(57,38,140,.12);
+      border-color: rgba(57,38,140,.38);
+      color: var(--black);
+    }
+    .doneBadge{
+      font-size:12px;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(34,197,94,.18);
+      border:1px solid rgba(34,197,94,.45);
+      color: rgba(220,252,231,.95);
+    }
+
+    .link{
+      color: rgba(191,219,254,.95);
+      text-decoration: none;
+      font-weight:800;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    .recItem{
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+      margin-top:10px;
+    }
+    .recHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .recTitle{
+      margin:0;
+      font-size:14px;
+      font-weight:900;
+    }
+    .muted{ color:var(--muted); font-size:13px; margin:6px 0 0; }
+
+    .smallBtn{
+      padding:8px 10px;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      font-weight:800;
+      display:none;
+      box-shadow: var(--shadow);
+    }
+  
+    .btnLarge.primary{ background: var(--primary); border-color: rgba(0,0,0,.0); color: var(--white); }
+    .smallBtn.primary{ background: var(--primary); border-color: rgba(0,0,0,0); color: var(--white); }
+    .smallBtn.primary:active{ transform: translateY(1px); }
+    .doneBadge{ background: rgba(255,156,22,.18); border: 1px solid rgba(255,156,22,.45); color: var(--black); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="titleRow">
+      <div>
+        <h1>Träningsappen för just dig</h1>
+        <div class="sub">Kruxa av uppgifter för att samla poäng •  Du kan nollställa när som helst via knappen nedan</div>
+      </div>
+      <div class="topActions">
+        <button id="resetBtn" class="danger">Nollställ</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="statCard">
+        <div class="score">
+          <div class="scoreBig" id="scoreBig">0</div>
+          <div class="scoreSmall">/ <span id="scoreTotal">12</span> poäng</div>
+        </div>
+        <div class="miniBars" id="miniBars"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="left">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>Övningar</h2>
+          <div class="sub" style="margin:0">Tryck “Markera klar” när du gjort övningen.</div>
+        </div>
+        <div class="section" id="exerciseList"></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>Nästa rekommendation</h2>
+          <button id="dismissRecBtn" class="smallBtn">Förkasta</button>
+        </div>
+        <div class="section">
+          <div class="muted">När du klarar en övning föreslår appen två nya Du kan alltid välja fritt.</div>
+          <div id="recBox"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="cardHeader">
+          <h2>Tips</h2>
+        </div>
+        <div class="section">
+          <div class="muted">
+            Kom ihåg att ha fokus på bra teknik innan du ökar hastigheten. Man tränar teknik, styrka och snabbhet. Snabbhet är en kombination av hela din kropps förmågor och att öka snabbhet kräver att man även pressar sin hjärna att styra kroppen snabbare.
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+
+/**
+ * Data extracted from user PDF (12 tasks, 4 themes). Source: 2025_Sommarutmaning_P14.pdf
+ * - TEMA 1: KONDITION (4 tasks)
+ * - TEMA 2: FINTAR (3 tasks + YouTube links)
+ * - TEMA 3: SNABBHET (2 tasks)
+ * - TEMA 4: KAST (3 tasks)
+ */
+const APP_KEY = "p14_sommarutmaning_v1";
+
+const THEMES = [
+  { id:"kondition", name:"Kondition", colorVar:"--kondition" },
+  { id:"fintar", name:"Fintar", colorVar:"--fintar" },
+  { id:"snabbhet", name:"Snabbhet", colorVar:"--snabbhet" },
+  { id:"kast", name:"Kast", colorVar:"--kast" },
+];
+
+const EXERCISES = [
+  // TEMA 1: KONDITION
+  { id:"k1", theme:"kondition", title:"Höga grodhopp", desc:"3×1 minut, 3 gånger under en vecka. Fokus: hoppa explosivt (snabbt).", points:1 },
+  { id:"k2", theme:"kondition", title:"5× 25 min lenkki", desc:"5 st 25-minuters lenkkin (ca 3 km).", points:3 },
+  { id:"k3", theme:"kondition", title:"Pushups", desc:"3×1 minut, 3 gånger under en vecka. Kom ihåg: nedre ryggen ska inte svacka.", points:1 },
+  { id:"k4", theme:"kondition", title:"Plankan", desc:"5× 90 sekunder, 3 gånger under en vecka. Kom ihåg: nedre ryggen ska inte svacka.", points:1 },
+
+  // TEMA 2: FINTAR (15 min/övning)
+  { id:"f1", theme:"fintar", title:"Fint och förbi till höger", desc:"Träningstid 15 min. Fokus: tempoväxling, sista steget långt framåt.", link:"https://youtu.be/hBZFyDOZw8I", points:1 },
+  { id:"f2", theme:"fintar", title:"Fint och förbi till vänster (överarmsfint)", desc:"Träningstid 15 min. Fokus: tempoväxling, sista steget långt framåt.", link:"https://youtu.be/Hq1Fx8iIba8", points:1 },
+  { id:"f3", theme:"fintar", title:"Snurrfint", desc:"Träningstid 15 min. Fokus: tempoväxling, sista steget långt framåt.", link:"https://youtu.be/aiSao8TgWL8", points:1 },
+
+  // TEMA 3: SNABBHET
+  { id:"s1", theme:"snabbhet", title:"Lyktstolpe-accelerationer", desc:"På promenad: varje gång su passerar en lyktstolpe accelerera till max hastighet (15–20 gånger). Luta framåt under accelerationen och arbeta även med händerna.", points:1 },
+  { id:"s2", theme:"snabbhet", title:"Explosiva jämfotahopp", desc:"4×15 meter. Starta med ca 90° eller mindre knävinkel. Explosivt. 3 gånger under en vecka", points:1 },
+
+  // TEMA 4: KAST
+  { id:"ka1", theme:"kast", title:"200 hårda kast (med t.ex. pingis/tennisboll)", desc:"Armen högt, armbågen fortsätter upp från axeln. Fokus: kroppsrotation, rätt fot fram.", points:1 },
+  { id:"ka2", theme:"kast", title:"Kastutmaning: välta flaskor", desc:"7 koner/flaskor i rad (0,5 m mellan). Kasta från ca 7 m, 7 gånger. Försök välta alla.", points:1 },
+  { id:"ka3", theme:"kast", title:"Fotbollskast mot vägg (2 händer)", desc:"40 st per gång. Håll bollen högt som i handboll, aktivera ryggmuskler.", points:1 },
+];
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(APP_KEY);
+    if(!raw) return { completed: {}, lastCompletedId: null, recDismissed: true };
+    const s = JSON.parse(raw);
+    return {
+      completed: s.completed || {},
+      lastCompletedId: s.lastCompletedId ?? null,
+      recDismissed: s.recDismissed ?? true,
+    };
+  } catch {
+    return { completed: {}, lastCompletedId: null, recDismissed: true };
+  }
+}
+
+function saveState(){
+  localStorage.setItem(APP_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+
+const elList = document.getElementById("exerciseList");
+const elScoreBig = document.getElementById("scoreBig");
+const elScoreTotal = document.getElementById("scoreTotal");
+const elMiniBars = document.getElementById("miniBars");
+const elRecBox = document.getElementById("recBox");
+const elToast = document.getElementById("toast");
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  const ok = confirm("Nollställ allt? Detta tar bort alla utförda övningar och poäng.");
+  if(!ok) return;
+  state = { completed:{}, lastCompletedId:null, recDismissed:true };
+  saveState();
+  renderAll();
+  toast("Nollställningen klar ✅");
+});
+
+document.getElementById("dismissRecBtn").addEventListener("click", () => {
+  state.recDismissed = true;
+  saveState();
+  renderRecommendations();
+  toast("Rekommendationer dolda");
+});
+
+function themeColor(themeId){
+  const theme = THEMES.find(t=>t.id===themeId);
+  if(!theme) return "#fff";
+  const v = getComputedStyle(document.documentElement).getPropertyValue(theme.colorVar).trim();
+  return v || "#fff";
+}
+
+function counts(){
+  const completedIds = Object.keys(state.completed).filter(id => state.completed[id]);
+
+  const totalPoints = EXERCISES.reduce((s,e)=>s + (e.points ?? 1), 0);
+  const donePoints  = EXERCISES.reduce((s,e)=>s + (state.completed[e.id] ? (e.points ?? 1) : 0), 0);
+
+  const perThemePoints = {};
+  for(const t of THEMES) perThemePoints[t.id] = 0;
+  for(const e of EXERCISES){
+    if(state.completed[e.id]) perThemePoints[e.theme] += (e.points ?? 1);
+  }
+
+  return { totalPoints, donePoints, perThemePoints };
+}
+
+/**
+ * Recommendation logic (simple and effective):
+ * - Choose 2 exercises not completed.
+ * - Prefer exercises in a different theme than the last completed (variety).
+ * - If not enough, fill from any remaining.
+ */
+function getRecommendations(){
+  const remaining = EXERCISES.filter(e => !state.completed[e.id]);
+  if(remaining.length === 0) return [];
+
+  const last = EXERCISES.find(e => e.id === state.lastCompletedId);
+  const lastTheme = last?.theme ?? null;
+
+  const preferred = lastTheme ? remaining.filter(e => e.theme !== lastTheme) : remaining;
+  const fallback = lastTheme ? remaining.filter(e => e.theme === lastTheme) : [];
+
+  const pick = [];
+  for(const pool of [preferred, fallback]){
+    for(const ex of pool){
+      if(pick.length >= 2) break;
+      if(!pick.some(p => p.id === ex.id)) pick.push(ex);
+    }
+  }
+  return pick;
+}
+
+function markComplete(id){
+  state.completed[id] = true;
+  state.lastCompletedId = id;
+  state.recDismissed = false;
+  saveState();
+  renderAll();
+  toast("Klart! ✅");
+}
+
+function toast(msg){
+  elToast.textContent = msg;
+  elToast.style.display = "block";
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => elToast.style.display = "none", 2200);
+}
+
+function renderStats(){
+  const { totalPoints, donePoints, perThemePoints } = counts();
+  elScoreBig.textContent = donePoints;
+  elScoreTotal.textContent = totalPoints;
+
+  elMiniBars.innerHTML = "";
+  for(const t of THEMES){
+    const pill = document.createElement("div");
+    pill.className = "pill";
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.style.background = themeColor(t.id);
+
+    const themeTotalPts = EXERCISES.filter(e=>e.theme===t.id).reduce((s,e)=>s + (e.points ?? 1), 0);
+    const themeDonePts  = perThemePoints[t.id] ?? 0;
+
+    const txt = document.createElement("div");
+    txt.textContent = `${t.name}: ${themeDonePts}/${themeTotalPts} p`;
+    pill.append(dot, txt);
+    elMiniBars.appendChild(pill);
+  }
+}
+
+function renderExercises(){
+  elList.innerHTML = "";
+
+  // group
+  for(const t of THEMES){
+    const header = document.createElement("div");
+    header.style.margin = "14px 2px 10px";
+    header.style.display = "flex";
+    header.style.alignItems = "center";
+    header.style.justifyContent = "space-between";
+    header.style.gap = "10px";
+
+    const h = document.createElement("div");
+    h.style.display = "flex";
+    h.style.alignItems = "center";
+    h.style.gap = "10px";
+
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.style.width = "12px";
+    dot.style.height = "12px";
+    dot.style.background = themeColor(t.id);
+
+    const title = document.createElement("div");
+    title.style.fontWeight = "900";
+    title.style.letterSpacing = ".2px";
+    title.textContent = t.name;
+
+    h.append(dot, title);
+
+    const small = document.createElement("div");
+    small.className = "sub";
+    small.style.margin = "0";
+    const totalThemePts = EXERCISES.filter(e=>e.theme===t.id).reduce((s,e)=>s + (e.points ?? 1), 0);
+    const doneThemePts = EXERCISES.filter(e=>e.theme===t.id && state.completed[e.id]).reduce((s,e)=>s + (e.points ?? 1), 0);
+    small.textContent = `${doneThemePts}/${totalThemePts} p`;
+
+    header.append(h, small);
+    elList.appendChild(header);
+
+    const items = EXERCISES.filter(e=>e.theme===t.id);
+    for(const ex of items){
+      const wrap = document.createElement("div");
+      wrap.className = "exercise";
+
+      const left = document.createElement("div");
+      left.className = "exLeft";
+
+      const exTitle = document.createElement("p");
+      exTitle.className = "exTitle";
+      exTitle.textContent = ex.title;
+
+      const meta = document.createElement("p");
+      meta.className = "exMeta";
+      meta.textContent = `${ex.desc} • ${ex.points ?? 1} poäng`;
+
+      left.append(exTitle, meta);
+
+      const tagRow = document.createElement("div");
+      tagRow.className = "tagRow";
+
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.style.borderColor = "rgba(255,255,255,.18)";
+      tag.style.background = "rgba(57,38,140,.10)";
+      tag.textContent = t.name;
+      tagRow.appendChild(tag);
+
+      if(ex.link){
+        const tag2 = document.createElement("a");
+        tag2.className = "tag link";
+        tag2.href = ex.link;
+        tag2.target = "_blank";
+        tag2.rel = "noopener noreferrer";
+        tag2.textContent = "Video";
+        tagRow.appendChild(tag2);
+      }
+
+      left.appendChild(tagRow);
+
+      const right = document.createElement("div");
+      right.className = "exRight";
+
+      const done = !!state.completed[ex.id];
+      if(done){
+        const badge = document.createElement("div");
+        badge.className = "doneBadge";
+        badge.textContent = "DONE";
+        right.appendChild(badge);
+      } else {
+        const btn = document.createElement("button");
+        btn.className = "smallBtn primary";
+        btn.textContent = "Markera klar";
+        btn.addEventListener("click", () => markComplete(ex.id));
+        right.appendChild(btn);
+      }
+
+      wrap.append(left, right);
+      elList.appendChild(wrap);
+    }
+  }
+}
+
+function renderRecommendations(){
+  elRecBox.innerHTML = "";
+
+  const remaining = EXERCISES.filter(e => !state.completed[e.id]);
+  if(remaining.length === 0){
+    const done = document.createElement("div");
+    done.className = "recItem";
+    done.innerHTML = `<div class="recHeader"><p class="recTitle">Allt klart! 🎉</p></div>
+                      <p class="muted">Du har gjort alla ${EXERCISES.length} uppgifter. Vill du köra en runda till? Tryck Reset.</p>`;
+    elRecBox.appendChild(done);
+    return;
+  }
+
+  if(state.recDismissed){
+    const msg = document.createElement("div");
+    msg.className = "recItem";
+    msg.innerHTML = `<div class="recHeader"><p class="recTitle">Inga rekommendationer visas</p></div>
+                     <p class="muted">Markera en övning som klar för att få 2 nya förslag.</p>`;
+    elRecBox.appendChild(msg);
+    return;
+  }
+
+  const recs = getRecommendations();
+  const title = document.createElement("div");
+  title.className = "recItem";
+  title.innerHTML = `<div class="recHeader"><p class="recTitle">Prova dessa härnäst</p></div>
+                     <p class="muted">Du kan dismiss:a och välja fritt bland övningarna.</p>`;
+  elRecBox.appendChild(title);
+
+  for(const ex of recs){
+    const t = THEMES.find(x=>x.id===ex.theme);
+    const box = document.createElement("div");
+    box.className = "recItem";
+
+    const head = document.createElement("div");
+    head.className = "recHeader";
+
+    const left = document.createElement("div");
+    left.style.display = "flex";
+    left.style.alignItems = "center";
+    left.style.gap = "10px";
+
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.style.background = themeColor(ex.theme);
+
+    const name = document.createElement("div");
+    name.innerHTML = `<div style="font-weight:900">${ex.title}</div>
+                      <div class="muted" style="margin:3px 0 0">${t?.name ?? ""}</div>`;
+
+    left.append(dot, name);
+
+    const btn = document.createElement("button");
+    btn.className = "smallBtn";
+    btn.textContent = "Gör denna";
+    btn.addEventListener("click", () => {
+      // scroll to exercise in list (simple: just toast; user can still find it)
+      toast("Välj den i listan och markera klar ✅");
+    });
+
+    head.append(left, btn);
+
+    const p = document.createElement("p");
+    p.className = "muted";
+    p.textContent = ex.desc;
+
+    box.append(head, p);
+
+    if(ex.link){
+      const a = document.createElement("a");
+      a.className = "link";
+      a.href = ex.link;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = "Öppna video";
+      box.appendChild(document.createElement("div")).style.height="8px";
+      box.appendChild(a);
+    }
+
+    elRecBox.appendChild(box);
+  }
+}
+
+function renderAll(){
+  renderStats();
+  renderExercises();
+  renderRecommendations();
+}
+
+renderAll();
+
+</script>
+</body>
+</html>
