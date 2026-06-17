@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="sv">
 <head>
@@ -7,288 +6,426 @@
   <title>Träningsappen 2026</title>
   <style>
 
-        :root{
-      /* Brand palette */
-      --primary:#39268C;   /* purple */
-      --accent:#FF9C16;    /* orange */
-      --danger:#FC1515;    /* red */
-      --white:#FFFFFF;
-      --black:#000000;
+    :root{
+      /* Brand palette - Dark theme with strong contrast */
+      --primary: #6366F1;      /* Indigo */
+      --primary-light: #818CF8; /* Lighter indigo for hover */
+      --accent: #EC4899;       /* Pink */
+      --accent-light: #F472B6; /* Lighter pink */
+      --danger: #EF4444;       /* Red */
+      --success: #10B981;      /* Emerald */
+      --white: #FFFFFF;
+      --black: #000000;
 
-      /* UI surfaces */
-      --bg:#FFFFFF;
-      --card:#FFFFFF;
-      --card2:#F6F4FF; /* very light purple tint */
-      --text:#000000;
-      --muted:rgba(0,0,0,.65);
-      --border:rgba(0,0,0,.12);
-      --shadow: 0 10px 30px rgba(57,38,140,.14);
+      /* UI surfaces - Dark mode with strong contrast */
+      --bg: #0F172A;           /* Deep navy */
+      --card: #1E293B;         /* Dark slate */
+      --card-hover: #334155;   /* Lighter slate */
+      --text: #F8FAFC;         /* Very light slate text */
+      --text-secondary: #E2E8F0; /* Secondary text */
+      --muted: #94A3B8;        /* Muted slate */
+      --border: rgba(148, 163, 184, 0.3);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 
-      /* Category accents (kept within palette) */
-      --kondition: var(--primary);
-      --fintar: var(--accent);
-      --snabbhet: var(--danger);
-      --kast: var(--black);
+      /* Category accents */
+      --kondition: #6366F1;    /* Indigo */
+      --fintar: #EC4899;       /* Pink */
+      --snabbhet: #EF4444;     /* Red */
+      --kast: #14B8A6;         /* Teal */
 
       --ok: var(--primary);
     }
-*{box-sizing:border-box}
+
+    *{ box-sizing: border-box; }
+
     body{
-      margin:0;
+      margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(96,165,250,.25), transparent 60%),
-                  radial-gradient(900px 600px at 90% 0%, rgba(244,114,182,.22), transparent 60%),
-                  radial-gradient(900px 600px at 40% 110%, rgba(52,211,153,.18), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.35;
+      background: linear-gradient(135deg, #0F172A 0%, #1a2847 25%, #0F172A 50%, #1a2847 75%, #0F172A 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: var(--text);
+      line-height: 1.35;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 40% 90%, rgba(20, 184, 166, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     header{
-      padding:18px 16px 10px;
-      max-width:1100px;
-      margin:0 auto;
+      padding: 24px 16px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
     }
+
     .titleRow{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
+
     h1{
-      font-size: clamp(22px, 3vw, 30px);
-      margin:0;
-      letter-spacing:.2px;
+      font-size: clamp(24px, 3vw, 32px);
+      margin: 0;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #818CF8, #F472B6, #22D3EE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
     }
+
     .sub{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
     }
 
     .topActions{
-      display:flex;
-      gap:10px;
-      align-items:center;
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
+
     button{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:14px;
-      cursor:pointer;
-      font-weight:600;
-      letter-spacing:.2px;
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--text-secondary);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      font-size: 14px;
     }
-    button:hover{ background: rgba(255,255,255,.10); }
-    button:active{ transform: translateY(1px); }
+
+    button:hover{ 
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.8);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    button:active{ 
+      transform: translateY(0px);
+    }
+
     .danger{
-      border-color: rgba(252,21,21,.55);
-      background: rgba(252,21,21,.10);
-      color: var(--black);
+      border-color: rgba(239, 68, 68, 0.6);
+      background: rgba(239, 68, 68, 0.12);
+      color: #FCA5A5;
+    }
+
+    .danger:hover{
+      background: rgba(239, 68, 68, 0.22);
+      border-color: rgba(239, 68, 68, 0.9);
+      color: #FECACA;
     }
 
     main{
-      max-width:1100px;
-      margin:0 auto;
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 0 16px 26px;
-      display:grid;
+      display: grid;
       grid-template-columns: 1fr;
-      gap:14px;
+      gap: 14px;
     }
 
     .stats{
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-    .statCard{
-      grid-column: span 12;
-      background: rgba(255,255,255,.04);
-      border:1px solid var(--border);
-      border-radius:18px;
-      box-shadow: var(--shadow);
-      padding:12px 14px;
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .score{
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-    }
-    .scoreBig{
-      font-size:34px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .scoreSmall{
-      color:var(--muted);
-      font-weight:700;
-    }
-    .miniBars{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      font-weight:700;
-      color:var(--muted);
-      font-size:13px;
-      white-space:nowrap;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:999px;
+      gap: 10px;
+      margin-top: 12px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
+    .statCard{
+      grid-column: span 12;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.06) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      backdrop-filter: blur(10px);
+    }
+
+    .score{
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .scoreBig{
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #818CF8;
+    }
+
+    .scoreSmall{
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .miniBars{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .pill{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(71, 85, 105, 0.25);
+      font-weight: 700;
+      color: var(--text-secondary);
+      font-size: 13px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover{
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.6);
+      color: var(--text);
+    }
+
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
     }
 
     @media (min-width: 860px){
-      main{ grid-template-columns: 1.2fr .8fr; align-items:start; }
+      main{ grid-template-columns: 1.2fr 0.8fr; align-items: start; }
       .left{ grid-column: 1 / 2; }
-      .right{ grid-column: 2 / 3; position:sticky; top:10px; }
+      .right{ grid-column: 2 / 3; position: sticky; top: 10px; }
     }
 
     .card{
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
+      background: linear-gradient(135deg, var(--card) 0%, rgba(30, 41, 59, 0.8) 100%);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 16px;
       box-shadow: var(--shadow);
-      overflow:hidden;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
     }
+
+    .card:hover{
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+
     .cardHeader{
-      padding:12px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      border-bottom:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), transparent);
     }
+
     .cardHeader h2{
-      margin:0;
-      font-size:16px;
-      letter-spacing:.2px;
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      font-weight: 800;
+      color: var(--text);
     }
 
     .section{
-      padding:12px 14px 14px;
+      padding: 14px 16px 16px;
     }
 
     .exercise{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.14);
-      border-radius:16px;
-      padding:12px;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-      margin-bottom:10px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(236, 72, 153, 0.04) 100%);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
     }
-    .exercise:last-child{ margin-bottom:0; }
 
-    .exLeft{ min-width:0; }
+    .exercise:hover{
+      border-color: rgba(99, 102, 241, 0.5);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%);
+    }
+
+    .exercise:last-child{ 
+      margin-bottom: 0; 
+    }
+
+    .exLeft{ 
+      min-width: 0; 
+    }
+
     .exTitle{
-      margin:0;
-      font-size:15px;
-      font-weight:800;
-      letter-spacing:.2px;
+      margin: 0;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      color: var(--text);
     }
+
     .exMeta{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:13px;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
     }
+
     .tagRow{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:8px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
+
     .tag{
-      font-size:12px;
-      font-weight:800;
-      color:rgba(255,255,255,.92);
-      padding:6px 8px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      background: rgba(99, 102, 241, 0.12);
+      transition: all 0.2s ease;
+    }
+
+    .tag:hover{
+      background: rgba(99, 102, 241, 0.22);
+      color: var(--text);
     }
 
     .exRight{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      align-items:flex-end;
-      flex-shrink:0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      flex-shrink: 0;
     }
+
     .primary{
-      background: rgba(57,38,140,.12);
-      border-color: rgba(57,38,140,.38);
-      color: var(--black);
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.5);
+      color: var(--text);
     }
+
     .doneBadge{
-      font-size:12px;
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(34,197,94,.18);
-      border:1px solid rgba(34,197,94,.45);
-      color: rgba(220,252,231,.95);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(20, 184, 166, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.6);
+      color: #86EFAC;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
     .link{
-      color: rgba(234,38,40,.95);
+      color: #F472B6;
       text-decoration: none;
-      font-weight:800;
+      font-weight: 800;
+      transition: all 0.2s ease;
     }
-    .link:hover{ text-decoration: underline; }
+
+    .link:hover{ 
+      color: #F8A5D0;
+      text-decoration: underline; 
+    }
 
     .recItem{
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.03);
-      border-radius:16px;
-      padding:12px;
-      margin-top:10px;
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(99, 102, 241, 0.06);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+      transition: all 0.3s ease;
     }
+
+    .recItem:hover{
+      background: rgba(99, 102, 241, 0.12);
+      border-style: solid;
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
     .recHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
+
     .recTitle{
-      margin:0;
-      font-size:14px;
-      font-weight:900;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--text);
     }
-    .muted{ color:var(--muted); font-size:13px; margin:6px 0 0; }
+
+    .muted{ 
+      color: var(--muted); 
+      font-size: 13px; 
+      margin: 6px 0 0; 
+    }
 
     .smallBtn{
-      padding:8px 10px;
-      border-radius:12px;
-      font-size:13px;
-      font-weight:800;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .smallBtn:hover{
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.8);
+      color: var(--text);
     }
 
     .toast{
@@ -296,20 +433,62 @@
       left: 50%;
       transform: translateX(-50%);
       bottom: 14px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.35);
-      color: var(--text);
-      font-weight:800;
-      display:none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-secondary);
+      font-weight: 800;
+      display: none;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.3s ease;
     }
-  
-    .btnLarge.primary{ background: var(--primary); border-color: rgba(0,0,0,.0); color: var(--white); }
-    .smallBtn.primary{ background: var(--primary); border-color: rgba(0,0,0,0); color: var(--white); }
-    .smallBtn.primary:active{ transform: translateY(1px); }
-    .doneBadge{ background: rgba(255,156,22,.18); border: 1px solid rgba(255,156,22,.45); color: var(--black); }
+
+    @keyframes slideUp {
+      from {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .btnLarge.primary{ 
+      background: var(--primary); 
+      border-color: var(--primary); 
+      color: var(--white); 
+    }
+
+    .btnLarge.primary:hover{
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+
+    .smallBtn.primary{ 
+      background: var(--primary); 
+      border-color: var(--primary); 
+      color: var(--white); 
+      font-weight: 800;
+    }
+
+    .smallBtn.primary:hover{
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+      color: var(--white);
+    }
+
+    .smallBtn.primary:active{ 
+      transform: translateY(1px); 
+    }
+
+    .doneBadge{ 
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 63, 94, 0.15)); 
+      border: 1px solid rgba(244, 63, 94, 0.6); 
+      color: #F472B6; 
+    }
 
   </style>
 </head>
@@ -318,7 +497,7 @@
     <div class="titleRow">
       <div>
         <h1>Träningsappen för just dig</h1>
-        <div class="sub">Kruxa av uppgifter för att samla poäng •  Du kan nollställa när som helst via knappen nedan</div>
+        <div class="sub">Kruxa av uppgifter för att samla poäng • Du kan nollställa när som helst via knappen nedan</div>
       </div>
       <div class="topActions">
         <button id="resetBtn" class="danger">Nollställ</button>
@@ -341,7 +520,7 @@
       <div class="card">
         <div class="cardHeader">
           <h2>Övningar</h2>
-          <div class="sub" style="margin:0">Tryck “Markera klar” när du gjort övningen.</div>
+          <div class="sub" style="margin:0">Tryck "Markera klar" när du gjort övningen.</div>
         </div>
         <div class="section" id="exerciseList"></div>
       </div>
@@ -365,7 +544,7 @@
         </div>
         <div class="section">
           <div class="muted">
-            Kom ihåg att ha fokus på bra teknik innan du ökar hastigheten. Man kan träna teknik, styrka och snabbhet. Teknik är att öva kroppen att göra rätt fast man skulle göra långsamt. Efter att man lärt sig rätt teknik kan man öva snabbhet och styrka. Vissa rörelser kräver mer styrka än andra. Att öva snabbhet kräver att man verkligen konsentrerar sig på att vara snabb utan att tappa rätt teknik. Det är tungt för hjärnan att öva snabbhet.
+            Kom ihåg att ha fokus på bra teknik innan du ökar hastigheten. Man kan träna teknik, styrka och snabbhet. Teknik är att öva kroppen att göra rätt fast man skulle göra långsamt. E[...]
           </div>
         </div>
       </div>
@@ -393,19 +572,19 @@ const EXERCISES = [
   { id:"k4", theme:"kondition", title:"Plankan", desc:"5× 90 sekunder, 3 gånger under en vecka. Kom ihåg: nedre ryggen får inte bilda en svacka.", points:1 },
 
   // TEMA 2: FINTAR (15 min/övning)
-  { id:"f1", theme:"fintar", title:"Fint och förbi till höger", desc:"Träningstid 15 min. Instruktioner: lura motståndaren genom att föra axlar och blick i fintens riktning varefter det sker tempoväxling åt andra hållet. Öva även så att du börjar med nollsteget (jämfota). Ta gärna det sista steget långt framåt.", link:"https://youtu.be/hBZFyDOZw8I", points:1 },
-  { id:"f2", theme:"fintar", title:"Fint och förbi till vänster (överarmsfint)", desc:"Träningstid 15 min. Instruktioner: Börja sakta med tydlig rörelse och öka senare tempo. Lura motståndaren genom att föra axlar och blick i fintens riktning varefter det sker tempoväxling åt andra hållet. Öva även så att du börjar med nollsteget (jämfota). Ta gärna det sista steget långt framåt och kom ihåg att föra handen upp som i videon.", link:"https://youtu.be/Hq1Fx8iIba8", points:1 },
+  { id:"f1", theme:"fintar", title:"Fint och förbi till höger", desc:"Träningstid 15 min. Instruktioner: lura motståndaren genom att föra axlar och blick i fintens riktning varefter det sker[...]
+  { id:"f2", theme:"fintar", title:"Fint och förbi till vänster (överarmsfint)", desc:"Träningstid 15 min. Instruktioner: Börja sakta med tydlig rörelse och öka senare tempo. Lura motstån[...]
   { id:"f3", theme:"fintar", title:"Snurrfint", desc:"Träningstid 15 min. Fokus: tempoväxling, sista steget långt framåt.", link:"https://youtu.be/aiSao8TgWL8", points:1 },
 
   // TEMA 3: SNABBHET
-  { id:"s1", theme:"snabbhet", title:"Acceleration under promenad", desc:"På promenad: varje gång du passerar en lyktstolpe accelerera/spurta till max hastighet och fortsätt springa tills nästa lyktstolpe. Gå sedan 30 sekunder och accelerera/spurta åter vid följande stolpe. Gör totalt (15–20 spurter per promenad). Luta framåt under accelerationen och arbeta även med händerna. Gör övningen 2 gånger under en vecka.", points:1 },
-  { id:"s2", theme:"snabbhet", title:"Explosiva jämfotahopp", desc:"6×15 meter. Starta med ca 90° eller mindre knävinkel. Hoppa långt och explosivt. Gör övningen 3 gånger under en vecka", points:1 },
-  { id:"s3", theme:"snabbhet", title:"Snabb rörelse i en kvadrat ca 1x1 meter stor", desc:"Rör dig snabbt med korta steg längs kanterna av en fyrkant. Fortsätt i 45 sekunder utan paus. Gör 3x45 sekunder medsols och 3x45 sekunder motsols. Gör övningen 2 gånger under en vecka.", points:1 },
+  { id:"s1", theme:"snabbhet", title:"Acceleration under promenad", desc:"På promenad: varje gång du passerar en lyktstolpe accelerera/spurta till max hastighet och fortsätt springa tills näs[...]
+  { id:"s2", theme:"snabbhet", title:"Explosiva jämfotahopp", desc:"6×15 meter. Starta med ca 90° eller mindre knävinkel. Hoppa långt och explosivt. Gör övningen 3 gånger under en vecka",[...]
+  { id:"s3", theme:"snabbhet", title:"Snabb rörelse i en kvadrat ca 1x1 meter stor", desc:"Rör dig snabbt med korta steg längs kanterna av en fyrkant. Fortsätt i 45 sekunder utan paus. Gör 3[...]
 
   // TEMA 4: KAST
-  { id:"ka1", theme:"kast", title:"200 hårda kast mot vägg (med t.ex. pingis/tennisboll/handboll)", desc:"Håll bollen högt under kastbanan så att även ryggmusklerna deltar i kastet. Kom ihåg att aktivera kroppens rotation samt att förstås ha rätt stödfot framme.", points:1 },
-  { id:"ka2", theme:"kast", title:"Kastutmaning: välta flaskor", desc:"Placera 7 koner/plast flaskor i rad (med 0,5 meters mellanrum från varandra). Kasta 7 gånger från ca 7 m avstånd. Försök välta alla 7 flaskor med endast 7 kast.", points:1 },
-  { id:"ka3", theme:"kast", title:"Fotbollskast mot vägg (kasta med 2 händer)", desc:"40 st per gång. Håll bollen (gärna en fotboll) högt som i handboll, aktivera ryggmusklerna under kastet.", points:1 },
+  { id:"ka1", theme:"kast", title:"200 hårda kast mot vägg (med t.ex. pingis/tennisboll/handboll)", desc:"Håll bollen högt under kastbanan så att även ryggmusklerna deltar i kastet. Kom ih[...]
+  { id:"ka2", theme:"kast", title:"Kastutmaning: välta flaskor", desc:"Placera 7 koner/plast flaskor i rad (med 0,5 meters mellanrum från varandra). Kasta 7 gånger från ca 7 m avstånd. Förs[...]
+  { id:"ka3", theme:"kast", title:"Fotbollskast mot vägg (kasta med 2 händer)", desc:"40 st per gång. Håll bollen (gärna en fotboll) högt som i handboll, aktivera ryggmusklerna under kastet[...]
 ];
 
 function loadState(){
@@ -565,6 +744,7 @@ function renderExercises(){
     const title = document.createElement("div");
     title.style.fontWeight = "900";
     title.style.letterSpacing = ".2px";
+    title.style.color = "var(--text)";
     title.textContent = t.name;
 
     h.append(dot, title);
@@ -602,8 +782,9 @@ function renderExercises(){
 
       const tag = document.createElement("div");
       tag.className = "tag";
-      tag.style.borderColor = "rgba(255,255,255,.18)";
-      tag.style.background = "rgba(57,38,140,.10)";
+      tag.style.borderColor = "rgba(99, 102, 241, 0.4)";
+      tag.style.background = "rgba(99, 102, 241, 0.12)";
+      tag.style.color = "var(--text-secondary)";
       tag.textContent = t.name;
       tagRow.appendChild(tag);
 
@@ -614,6 +795,7 @@ function renderExercises(){
         tag2.target = "_blank";
         tag2.rel = "noopener noreferrer";
         tag2.textContent = "Video";
+        tag2.style.color = "#F472B6";
         tagRow.appendChild(tag2);
       }
 
@@ -689,7 +871,7 @@ function renderRecommendations(){
     dot.style.background = themeColor(ex.theme);
 
     const name = document.createElement("div");
-    name.innerHTML = `<div style="font-weight:900">${ex.title}</div>
+    name.innerHTML = `<div style="font-weight:900; color: var(--text)">${ex.title}</div>
                       <div class="muted" style="margin:3px 0 0">${t?.name ?? ""}</div>`;
 
     left.append(dot, name);
