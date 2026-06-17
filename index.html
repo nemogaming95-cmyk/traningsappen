@@ -497,7 +497,7 @@
     <div class="titleRow">
       <div>
         <h1>Träningsappen för just dig</h1>
-        <div class="sub">Kruxa av uppgifter för att samla poäng •  Du kan nollställa när som helst via knappen nedan</div>
+        <div class="sub">Kruxa av uppgifter för att samla poäng<br> Du kan nollställa när som helst via knappen nedan</div>
       </div>
       <div class="topActions">
         <button id="resetBtn" class="danger">Nollställ</button>
@@ -533,7 +533,7 @@
           <button id="dismissRecBtn" class="smallBtn">Förkasta</button>
         </div>
         <div class="section">
-          <div class="muted">När du klarar en övning föreslår appen två nya Du kan alltid välja fritt.</div>
+          <div class="muted">När du klarar en övning föreslår appen två nya övningar men du får välja vilken övning du vill.</div>
           <div id="recBox"></div>
         </div>
       </div>
@@ -850,7 +850,7 @@ function renderRecommendations(){
   const title = document.createElement("div");
   title.className = "recItem";
   title.innerHTML = `<div class="recHeader"><p class="recTitle">Prova dessa härnäst</p></div>
-                     <p class="muted">Du kan dismiss:a och välja fritt bland övningarna.</p>`;
+                     <p class="muted">Du kan även välja bland de andra övningarna.</p>`;
   elRecBox.appendChild(title);
 
   for(const ex of recs){
